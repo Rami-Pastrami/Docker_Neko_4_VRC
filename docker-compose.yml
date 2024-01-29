@@ -11,7 +11,7 @@ services:
           - 'MTX_WEBRTCADDITIONALHOSTS=${LOCAL_MACHINE_IP}'
           - 'MTX_HLS=no'
           - 'MTX_WEBRTC=no'
-          - 'MTX_RTSPADDRESS=${RTSP_PORT}'
+          - 'RTSPADDRESS=${RTSP_PORT}'
 
     neko:
       image: "m1k1o/neko:firefox"
