@@ -16,6 +16,7 @@ This is NOT a way to interact with browsers from VRChat directly. Work can be do
 - Port Forward your RTSP port from your router
 - *Optional* User VLC to confirm the RTSP stream is working remotely by opening network stream "rtsp://your_external_IP:(rtsp_port)/(stream_key)"
 - Use the link in vrchat worlds "rtsp://your_external_IP:(rtsp_port)/(stream_key)" to share with other people 
+- *Optional* Instead of using your external IP in the address, set up a DDNS service to make your URL a bit prettier. Keep in mind its trivial to retrieve your IP from this, however.
 
 ## Standard Disclaimers
 Take standard precautions that come when exposing ports to the public internet, even if its just the RTSP stream. Keep in mind all URLs put in VRC are saved to easily accessible logs, and users could check on your RTSP stream at later times if the endpoint never changes.
