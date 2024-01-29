@@ -1,0 +1,40 @@
+version: '3.3'
+services:
+    mediamtx:
+        stdin_open: true
+        container_name: mediamtx
+        tty: true
+        network_mode: host
+        image: bluenviron/mediamtx:latest
+        environment:
+          - 'MTX_PROTOCOLS=tcp'
+          - 'MTX_WEBRTCADDITIONALHOSTS=${LOCAL_MACHINE_IP}'
+          - 'MTX_HLS=no'
+          - 'MTX_WEBRTC=no'
+          - 'MTX_RTSPADDRESS=${RTSP_PORT}'
+
+    neko:
+      image: "m1k1o/neko:firefox"
+      container_name: neko
+      restart: "unless-stopped"
+      shm_size: "4gb"
+      ports:
+        - "8080:8080"
+        - "52000-52100:52000-52100/udp"
+      volumes:
+        - './dockers/neko/profile:/home/neko/.mozilla/firefox/profile.default'
+        - './dockers/neko/policies.json:/usr/lib/firefox/distribution/policies.json'
+      depends_on:
+        - 'mediamtx'
+      environment:
+        NEKO_SCREEN: '1280x720@30'
+        NEKO_PASSWORD: ${USER_PASSWORD}
+        NEKO_PASSWORD_ADMIN: ${ADMIN_PASSWORD}
+        NEKO_EPR: 52000-52100
+        NEKO_NAT1TO1: ${LOCAL_MACHINE_IP}
+        NEKO_ICELITE: 1
+        NEKO_BROADCAST_URL: rtmp://${LOCAL_MACHINE_IP}:1935/${STREAM_KEY}
+        NEKO_FILE_TRANSFER_ENABLED: false
+        NEKO_BROADCAST_PIPELINE: "flvmux name=mux ! rtmpsink location={url} pulsesrc device={device} ! audio/x-raw,channels=2,rate=48000 ! audioconvert ! voaacenc ! mux. ximagesrc display-name={display} show-pointer=true use-damage=false ! video/x-raw,framerate=30/1 ! videoconvert ! queue ! x264enc bframes=0 key-int-max=0 tune=zerolatency speed-preset=veryfast bitrate=${VIDEO_BITRATE_KBPS} ! video/x-h264,profile=main ! mux."
+    
+    
