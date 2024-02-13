@@ -1,4 +1,7 @@
 # NEKO 4 VRC
+
+![image](https://github.com/Rami-Pastrami/Docker_Neko_4_VRC/assets/25966197/168b61ef-fe2a-423f-a5e0-42938db5f95f)
+
 This is just a premade docker-compose file to allow the use of viewing the session within [N.eko](https://github.com/m1k1o/neko) inside VRChat over RTSP, by utilizing [MediaMTX](https://github.com/bluenviron/mediamtx) to convert the RTMP stream output from N.eko into an RTSP stream that VRChat can play on AVPro enabled players.
 
 This is NOT a way to interact with browsers from VRChat directly. Work can be done to enable such functionality, but that was not my goal with making this. I simply wanted a convenient way to share media from a browser with all of my friends, and to self-host that solution.
